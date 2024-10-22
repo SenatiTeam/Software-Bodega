@@ -21,7 +21,7 @@ public class CategoriaControl {
     
     public DefaultTableModel listar(String texto){
         List<Categoria> lista=new ArrayList();
-        lista.addAll(DATOS.listar(texto));
+        lista.addAll(DATOS.listar(texto, registrosMostrados, registrosMostrados));
         
         String[] titulos={"ID","NOMBRE","DESCRIPCIÓN","ESTADO"};
         this.modeloTabla=new DefaultTableModel(null,titulos);        

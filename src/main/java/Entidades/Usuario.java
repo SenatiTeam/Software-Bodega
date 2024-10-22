@@ -3,49 +3,52 @@ package Entidades;
 
 
 public class Usuario {
+    // Atributos
     private int id;
     private int rolId;
-    private String rolNombre;
     private String nombre;
     private String tipoDocumento;
-    private String numDocumento;
+    private int numDocumento;
     private String direccion;
-    private String telefono;
+    private int telefono;
+    private String fecha_contrato;
     private String email;
     private String clave;
+    private String foto;
     private boolean activo;
 
+    // Constructores
     public Usuario() {
     }
 
-    public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, boolean activo) {
+    public Usuario(int id, int rolId, String nombre, String tipoDocumento, int numDocumento, String direccion, int telefono, String email, boolean activo) {
         this.id = id;
         this.rolId = rolId;
-        this.rolNombre = rolNombre;
         this.nombre = nombre;
         this.tipoDocumento = tipoDocumento;
         this.numDocumento = numDocumento;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
+        this.activo = activo;
+    }
+
+    public Usuario(int id, int rolId, String nombre, String tipoDocumento, int numDocumento, String direccion, int telefono, String fecha_contrato, String email, String clave, String foto, boolean activo) {
+        this.id = id;
+        this.rolId = rolId;
+        this.nombre = nombre;
+        this.tipoDocumento = tipoDocumento;
+        this.numDocumento = numDocumento;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.fecha_contrato = fecha_contrato;
+        this.email = email;
+        this.clave = clave;
+        this.foto = foto;
         this.activo = activo;
     }
     
-
-    public Usuario(int id, int rolId, String rolNombre, String nombre, String tipoDocumento, String numDocumento, String direccion, String telefono, String email, String clave, boolean activo) {
-        this.id = id;
-        this.rolId = rolId;
-        this.rolNombre = rolNombre;
-        this.nombre = nombre;
-        this.tipoDocumento = tipoDocumento;
-        this.numDocumento = numDocumento;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.clave = clave;
-        this.activo = activo;
-    }
-
+    // Getter and Setter 
     public int getId() {
         return id;
     }
@@ -60,14 +63,6 @@ public class Usuario {
 
     public void setRolId(int rolId) {
         this.rolId = rolId;
-    }
-
-    public String getRolNombre() {
-        return rolNombre;
-    }
-
-    public void setRolNombre(String rolNombre) {
-        this.rolNombre = rolNombre;
     }
 
     public String getNombre() {
@@ -86,11 +81,11 @@ public class Usuario {
         this.tipoDocumento = tipoDocumento;
     }
 
-    public String getNumDocumento() {
+    public int getNumDocumento() {
         return numDocumento;
     }
 
-    public void setNumDocumento(String numDocumento) {
+    public void setNumDocumento(int numDocumento) {
         this.numDocumento = numDocumento;
     }
 
@@ -102,12 +97,20 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public String getFecha_contrato() {
+        return fecha_contrato;
+    }
+
+    public void setFecha_contrato(String fecha_contrato) {
+        this.fecha_contrato = fecha_contrato;
     }
 
     public String getEmail() {
@@ -126,6 +129,14 @@ public class Usuario {
         this.clave = clave;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
     public boolean isActivo() {
         return activo;
     }
@@ -133,6 +144,9 @@ public class Usuario {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", rolId=" + rolId + ", nombre=" + nombre + ", tipoDocumento=" + tipoDocumento + ", numDocumento=" + numDocumento + ", direccion=" + direccion + ", telefono=" + telefono + ", fecha_contrato=" + fecha_contrato + ", email=" + email + ", clave=" + clave + ", foto=" + foto + ", activo=" + activo + '}';
+    }
 }

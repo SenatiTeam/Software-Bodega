@@ -1,17 +1,17 @@
 
 package Datos;
 
+import Datos.interfaces.productoInterfaz;
 import Entidades.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import dataBase.Conexion;
-import datos.interfaces.CrudPaginadoInterface;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class ProductoDAO implements CrudPaginadoInterface<Producto> {
+public class ProductoDAO implements productoInterfaz<Producto> {
     private final Conexion CON;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -26,15 +26,20 @@ public class ProductoDAO implements CrudPaginadoInterface<Producto> {
     public List<Producto> listar(String texto,int totalPorPagina,int numPagina) {
         List<Producto> registros=new ArrayList();
         try {
-            ps=CON.conectar().prepareStatement("SELECT a.id_Productos,a.categoria_id, c.nombre as categoria_nombre, a.proveedor_id, p.nombre as proveedor_nombre, a.codigo_producto, a.nombre_producto, a.marca_producto, a.precio_compra, a.ganancia, a.cantidad_producto, "
-                    + "a.descripcion_producto, a.imagen_producto, a.condicion FROM productos a inner join categorias c ON a.categoria_id=c.id_Categorias inner join proveedores p on a.categoria_id=p.id_Proveedores WHERE a.nombre_producto LIKE ? ORDER BY a.id_Productos ASC LIMIT ?,?");
+            ps=CON.conectar().prepareStatement("SELECT a.id_Productos,a.categoria_id, c.nombre as categoria_nombre, a.proveedor_id, p.nombre as proveedor_nombre, "
+                    + "a.codigo_producto, a.nombre_producto, a.marca_producto, a.precio_compra, a.ganancia, a.cantidad_producto, "
+                    + "a.descripcion_producto, a.fecha_vencimiento, a.imagen_producto, a.condicion "
+                    + "FROM productos a "
+                    + "INNER JOIN categorias c ON a.categoria_id=c.id_Categorias "
+                    + "INNER JOIN proveedores p on a.proveedor_id=p.id_Proveedores "
+                    + "WHERE a.nombre_producto LIKE ? ORDER BY a.id_Productos ASC LIMIT ?,?,?");
             ps.setString(1,"%" + texto +"%");            
             ps.setInt(2, (numPagina-1)*totalPorPagina);
             ps.setInt(3, totalPorPagina);
             rs=ps.executeQuery();
             while(rs.next()){
                 registros.add(new Producto(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), 
-                        rs.getString(8), rs.getDouble(9), rs.getDouble(10), rs.getInt(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getBoolean(15)));
+                        rs.getString(8), rs.getDouble(9), rs.getDouble(10), rs.getInt(11), rs.getString(12), rs.getString(13), rs.getDate(14), rs.getBoolean(15)));
             }
             ps.close();
             rs.close();
@@ -52,7 +57,7 @@ public class ProductoDAO implements CrudPaginadoInterface<Producto> {
     public boolean insertar(Producto obj) {
         resp=false;
         try {
-            ps=CON.conectar().prepareStatement("INSERT INTO productos (categoria_id, proveedor_id,codigo_producto,nombre_producto, marca_producto,precio_compra, "
+            ps=CON.conectar().prepareStatement("INSERT INTO productos (categoria_id, proveedor_id,codigo_producto,nombre_producto,marca_producto,precio_compra, "
                     + "ganancia,cantidad_producto,descripcion_producto,fecha_vencimiento,imagen_producto,condicion) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
             ps.setInt(1,obj.getCategoriaId());
             ps.setInt(2, obj.getProveedorId());
@@ -63,7 +68,7 @@ public class ProductoDAO implements CrudPaginadoInterface<Producto> {
             ps.setDouble(7, obj.getGanancia());
             ps.setInt(8, obj.getStock());
             ps.setString(9, obj.getDescripcion());
-            ps.setString(10, obj.getFecha_Vencimiento());
+            ps.setDate(10, (java.sql.Date) obj.getFecha_Vencimiento());
             ps.setString(11, obj.getImagen());
             if (ps.executeUpdate()>0){
                 resp=true;

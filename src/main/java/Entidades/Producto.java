@@ -4,6 +4,7 @@ package Entidades;
 import java.util.Date;
 
 public class Producto {
+    // Atributos
     private int id;
     private int categoriaId;
     private String categoriaNombre;
@@ -17,15 +18,14 @@ public class Producto {
     private int stock;
     private String descripcion;
     private String imagen;
-    private String fecha_Vencimiento;
+    private Date fecha_Vencimiento;
     private boolean activo;
     
     // Constructores
-    
     public Producto() {
     }
 
-    public Producto(int id, int categoriaId, String categoriaNombre, int proveedorId, String proveedorNombre, String codigo, String nombre, String marca, double precioCompra, double ganancia, int stock, String descripcion, String imagen, String fecha_Vencimiento, boolean activo) {
+    public Producto(int id, int categoriaId, String categoriaNombre, int proveedorId, String proveedorNombre, String codigo, String nombre, String marca, double precioCompra, double ganancia, int stock, String descripcion, String imagen, Date fecha_Vencimiento, boolean activo) {
         this.id = id;
         this.categoriaId = categoriaId;
         this.categoriaNombre = categoriaNombre;
@@ -41,7 +41,7 @@ public class Producto {
         this.imagen = imagen;
         this.fecha_Vencimiento = fecha_Vencimiento;
         this.activo = activo;
-    }
+    } 
     
     // Getter and Setter
 
@@ -149,11 +149,11 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public String getFecha_Vencimiento() {
+    public Date getFecha_Vencimiento() {
         return fecha_Vencimiento;
     }
 
-    public void setFecha_Vencimiento(String fecha_Vencimiento) {
+    public void setFecha_Vencimiento(Date fecha_Vencimiento) {
         this.fecha_Vencimiento = fecha_Vencimiento;
     }
 
@@ -169,5 +169,4 @@ public class Producto {
     public String toString() {
         return "Producto{" + "id=" + id + ", categoriaId=" + categoriaId + ", categoriaNombre=" + categoriaNombre + ", proveedorId=" + proveedorId + ", proveedorNombre=" + proveedorNombre + ", codigo=" + codigo + ", nombre=" + nombre + ", marca=" + marca + ", precioCompra=" + precioCompra + ", ganancia=" + ganancia + ", stock=" + stock + ", descripcion=" + descripcion + ", imagen=" + imagen + ", fecha_Vencimiento=" + fecha_Vencimiento + ", activo=" + activo + '}';
     }
-    
 }

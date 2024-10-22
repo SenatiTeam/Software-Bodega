@@ -1,17 +1,17 @@
 
 package Datos;
 
+import Datos.interfaces.categoriaInterfaz;
 import Entidades.Categoria;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import dataBase.Conexion;
-import datos.interfaces.CrudSimpleInterface;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class CategoriaDAO implements CrudSimpleInterface<Categoria> {
+public class CategoriaDAO implements categoriaInterfaz <Categoria>{
     private final Conexion CON;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -21,9 +21,8 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria> {
         CON=Conexion.getInstancia();
     }
     
-    
     @Override
-    public List<Categoria> listar(String texto) {
+    public List<Categoria> listar(String texto, int totalPorPagina, int numPagina) {
         List<Categoria> registros=new ArrayList();
         try {
             ps=CON.conectar().prepareStatement("SELECT * FROM categorias WHERE nombre LIKE ?");
@@ -116,7 +115,7 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria> {
             }
             ps.close();
         }  catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"NO SE PUEDE DESCATIVAR LA CATEGORÍA " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"NO SE PUEDE DESACTIVAR LA CATEGORÍA " + e.getMessage());
         } finally{
             ps=null;
             CON.desconectar();
@@ -135,7 +134,7 @@ public class CategoriaDAO implements CrudSimpleInterface<Categoria> {
             }
             ps.close();
         }  catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"NO SE PUEDE ATIVAR LA CATEGORÍA " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"NO SE PUEDE ACTIVAR LA CATEGORÍA " + e.getMessage());
         } finally{
             ps=null;
             CON.desconectar();

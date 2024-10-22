@@ -4,6 +4,7 @@ package Entidades;
 import java.util.Objects;
 
 public class Categoria {
+    // Atributos
     private int id;
     private String nombre;
     private String descripcion;
@@ -28,7 +29,6 @@ public class Categoria {
     }
     
     //Setter y getter
-
     public int getId() {
         return id;
     }
@@ -104,6 +104,4 @@ public class Categoria {
         }
         return true;
     }
-    
-    
 }
